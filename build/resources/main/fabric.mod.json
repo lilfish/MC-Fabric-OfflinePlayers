@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "offlineplayers",
+  "version": "${mod_version}",
+  "name": "OfflinePlayers",
+  "description": "Allows a user to logout and leaving a fake player that loads the chunks",
+  "authors": [
+    "Fish"
+  ],
+  "contributors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/offlineplayers/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.fish.offlineplayers.OfflinePlayers"
+    ],
+    "client": [],
+    "server": []
+  },
+  "mixins": [
+    "offlineplayers.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.11.3",
+    "fabric": "*",
+    "minecraft": "1.17.x",
+    "java": ">=16"
+  }
+}

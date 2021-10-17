@@ -1,0 +1,36 @@
+net/fish/offlineplayers/NBTUtils/JsonToNbt.java
+ net.fish.offlineplayers.NBTUtils.JsonToNbt
+net/fish/offlineplayers/NPC/Tracer.java
+ net.fish.offlineplayers.NPC.Tracer
+net/fish/offlineplayers/interfaces/ImplementedInventory.java
+ net.fish.offlineplayers.interfaces.ImplementedInventory
+net/fish/offlineplayers/mixin/ServerPlayerEntityMixin.java
+ net.fish.offlineplayers.mixin.ServerPlayerEntityMixin
+net/fish/offlineplayers/OfflinePlayers.java
+ net.fish.offlineplayers.OfflinePlayers
+net/fish/offlineplayers/storage/models/NPCModel.java
+ net.fish.offlineplayers.storage.models.NPCModel
+ net.fish.offlineplayers.storage.models.NPCModel$NPCItem
+net/fish/offlineplayers/OfflineNetworkManager.java
+ net.fish.offlineplayers.OfflineNetworkManager
+net/fish/offlineplayers/NPC/NPCClass.java
+ net.fish.offlineplayers.NPC.NPCClass
+net/fish/offlineplayers/interfaces/ServerPlayerEntityInterface.java
+ net.fish.offlineplayers.interfaces.ServerPlayerEntityInterface
+net/fish/offlineplayers/mixin/PlayerManagerMixin.java
+ net.fish.offlineplayers.mixin.PlayerManagerMixin
+net/fish/offlineplayers/storage/OfflineDatabase.java
+ net.fish.offlineplayers.storage.OfflineDatabase
+net/fish/offlineplayers/OfflineNetHandlerPlayServer.java
+ net.fish.offlineplayers.OfflineNetHandlerPlayServer
+net/fish/offlineplayers/NPC/EntityPlayerActionPack.java
+ net.fish.offlineplayers.NPC.EntityPlayerActionPack
+ net.fish.offlineplayers.NPC.EntityPlayerActionPack$1
+ net.fish.offlineplayers.NPC.EntityPlayerActionPack$Action
+ net.fish.offlineplayers.NPC.EntityPlayerActionPack$ActionType
+ net.fish.offlineplayers.NPC.EntityPlayerActionPack$ActionType$1
+ net.fish.offlineplayers.NPC.EntityPlayerActionPack$ActionType$2
+ net.fish.offlineplayers.NPC.EntityPlayerActionPack$ActionType$3
+ net.fish.offlineplayers.NPC.EntityPlayerActionPack$ActionType$4
+ net.fish.offlineplayers.NPC.EntityPlayerActionPack$ActionType$5
+ net.fish.offlineplayers.NPC.EntityPlayerActionPack$ActionType$6

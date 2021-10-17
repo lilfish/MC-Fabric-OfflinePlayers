@@ -1,0 +1,2 @@
+v1	named	intermediary
+FIELD	net/fish/offlineplayers/mixin/PlayerManagerMixin	Lnet/minecraft/server/MinecraftServer;	server	field_14360
