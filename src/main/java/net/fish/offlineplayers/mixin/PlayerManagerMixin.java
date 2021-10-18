@@ -43,7 +43,7 @@ public abstract class PlayerManagerMixin {
         if (isServerPlayerEntity) {
             return new OfflineNetHandlerPlayServer(this.server, clientConnection, playerIn);
         } else {
-            System.out.println("On player connect");
+            OfflinePlayers.playerJoined(playerIn);
             return new ServerPlayNetworkHandler(this.server, clientConnection, playerIn);
         }
     }

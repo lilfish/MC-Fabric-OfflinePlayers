@@ -1,3 +1,6 @@
+net/fish/offlineplayers/NBTUtils/NbtToJson.java
+ net.fish.offlineplayers.NBTUtils.NbtToJson
+ net.fish.offlineplayers.NBTUtils.NbtToJson$ConversionMode
 net/fish/offlineplayers/NBTUtils/JsonToNbt.java
  net.fish.offlineplayers.NBTUtils.JsonToNbt
 net/fish/offlineplayers/NPC/Tracer.java

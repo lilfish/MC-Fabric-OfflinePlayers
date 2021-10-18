@@ -1,21 +1,18 @@
 package net.fish.offlineplayers.storage;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
+import com.google.gson.Gson;
 import io.jsondb.InvalidJsonDbApiUsageException;
 import io.jsondb.JsonDBTemplate;
 import io.jsondb.query.Update;
-import net.fish.offlineplayers.NBTUtils.JsonToNbt;
 import net.fish.offlineplayers.NPC.NPCClass;
 import net.fish.offlineplayers.storage.models.NPCModel;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.StringNbtReader;
 import net.minecraft.text.Text;
 
 import java.lang.reflect.Field;
@@ -32,6 +29,8 @@ public class OfflineDatabase {
     String baseScanPackage = "net.fish.offlineplayers.storage.models";
 
     public Items items = new Items();
+
+    final static Gson gson = new Gson();
 
     //Optionally a Cipher object if you need Encryption
 
@@ -65,6 +64,16 @@ public class OfflineDatabase {
         jsonDBTemplate.remove(instance, NPCModel.class);
     }
 
+    public NPCModel findNPCByPlayer(UUID uuid){
+        String jxQuery = String.format("/.[id='%s']", uuid);
+        return jsonDBTemplate.findOne(jxQuery, NPCModel.class);
+    }
+
+    public NPCModel findNPCByNPC(UUID uuid){
+        String jxQuery = String.format("/.[npc_id='%s']", uuid);
+        return jsonDBTemplate.findOne(jxQuery, NPCModel.class);
+    }
+
     public void saveDeathNPC(NPCClass npc, Text deathMessage) {
 //      Seat Dead
         Update update = Update.update("dead", true);
@@ -78,8 +87,8 @@ public class OfflineDatabase {
                 newItem.nbttag = npcItem.getNbt().asString();
             inventoryItemCollection.add(newItem);
         }
-
         update.set("inventory", inventoryItemCollection);
+
 //      Set CHEST
         ItemStack npcChest = npc.getEquippedStack(EquipmentSlot.CHEST);
         NPCModel.NPCItem chestItem = new NPCModel.NPCItem();
@@ -138,18 +147,8 @@ public class OfflineDatabase {
         jsonDBTemplate.findAndModify(jxQuery, update, "npcdata");
     }
 
-    public Inventory getNPCInventoryNPC(UUID npc_id)
-    {
-        String jxQuery = String.format("/.[npc_id='%s']", npc_id);
-        NPCModel npc = jsonDBTemplate.findOne(jxQuery, NPCModel.class);
-        return getNPCInventory(npc);
-    }
-    public Inventory getNPCInventoryPlayer(UUID player_id)
-    {
-        NPCModel npc = jsonDBTemplate.findById(player_id, NPCModel.class);
-        return getNPCInventory(npc);
-    }
-    public Inventory getNPCInventory(NPCModel npc)
+
+    public PlayerInventory getNPCInventory(NPCModel npc)
     {
 
         PlayerInventory inv = new PlayerInventory(null);
@@ -176,20 +175,16 @@ public class OfflineDatabase {
 
     public ItemStack getItemStack(NPCModel.NPCItem npcItem){
         try {
-            String itemName = npcItem.itemname.toUpperCase();
+            String itemName = npcItem.itemname.replaceAll(" ", "_").toUpperCase();
             Field itemField = items.getClass().getDeclaredField(itemName);
             Item realItem = (Item) itemField.get(this);
             ItemStack itemStack = new ItemStack(realItem, npcItem.count);
             if(npcItem.nbttag != null){
-                JsonElement jsonElement = JsonParser.parseString(npcItem.nbttag);
-                NbtElement tags = JsonToNbt.toNbt(jsonElement);
-                System.out.println(tags.toString());
-                itemStack.setNbt((NbtCompound) tags);
+                NbtCompound tags = StringNbtReader.parse(npcItem.nbttag);
+                itemStack.setNbt(tags);
             }
             return itemStack;
-        } catch (Exception ignore) {
-            System.out.println("I: "+ignore);
-        }
+        } catch (Exception ignore) {}
         return new ItemStack(Items.AIR, 1);
     }
 }

@@ -10,7 +10,6 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.HungerManager;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.network.NetworkSide;
@@ -71,9 +70,8 @@ public class NPCClass extends ServerPlayerEntity implements ImplementedInventory
         server.getPlayerManager().onPlayerConnect(new OfflineNetworkManager(NetworkSide.SERVERBOUND), instance);
         instance.teleport(worldIn, player.getX(), player.getY(), player.getZ(), (float) player.getYaw(), (float) player.getPitch());
 
-//        Health, Fire and Hunger
+//        Health and Hunger
         instance.setHealth(player.getHealth());
-        instance.setOnFire(player.isOnFire());
         instance.hungerManager.setFoodLevel(player.getHungerManager().getFoodLevel());
         instance.hungerManager.setExhaustion(player.getHungerManager().getExhaustion());
         instance.hungerManager.setSaturationLevel(player.getHungerManager().getSaturationLevel());
@@ -190,7 +188,6 @@ public class NPCClass extends ServerPlayerEntity implements ImplementedInventory
     public void onDeath(DamageSource cause)
     {
         saveDeathData(this.getDamageTracker().getDeathMessage());
-        Inventory test = OfflinePlayers.STORAGE.getNPCInventoryNPC(this.uuid);
         shakeOff();
         this.ResetNPC();
         super.onDeath(cause);
