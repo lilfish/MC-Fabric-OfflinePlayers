@@ -1,9 +1,9 @@
-package net.fish.offlineplayers.mixin;
+package net.lilfish.offlineplayers.mixin;
 
 import com.mojang.authlib.GameProfile;
-import net.fish.offlineplayers.NPC.NPCClass;
-import net.fish.offlineplayers.OfflineNetHandlerPlayServer;
-import net.fish.offlineplayers.OfflinePlayers;
+import net.lilfish.offlineplayers.NPC.NPCClass;
+import net.lilfish.offlineplayers.OfflineNetHandlerPlayServer;
+import net.lilfish.offlineplayers.OfflinePlayers;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.ClientConnection;
 import net.minecraft.server.MinecraftServer;

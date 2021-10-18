@@ -1,4 +1,4 @@
-package net.fish.offlineplayers.NPC;
+package net.lilfish.offlineplayers.NPC;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.util.hit.BlockHitResult;

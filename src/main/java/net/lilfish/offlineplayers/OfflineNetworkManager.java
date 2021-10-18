@@ -1,4 +1,4 @@
-package net.fish.offlineplayers;
+package net.lilfish.offlineplayers;
 
 import net.minecraft.network.ClientConnection;
 import net.minecraft.network.NetworkSide;

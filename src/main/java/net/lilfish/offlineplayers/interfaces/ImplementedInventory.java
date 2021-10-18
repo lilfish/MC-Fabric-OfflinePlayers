@@ -1,4 +1,4 @@
-package net.fish.offlineplayers.interfaces;
+package net.lilfish.offlineplayers.interfaces;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventories;

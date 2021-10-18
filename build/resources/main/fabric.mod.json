@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
   "id": "offlineplayers",
-  "version": "${mod_version}",
+  "version": "${version}",
   "name": "OfflinePlayers",
   "description": "Allows a user to logout and leaving a fake player that loads the chunks",
   "authors": [
-    "Fish"
+    "lilfish"
   ],
   "contributors": [],
   "contact": {},
@@ -14,7 +14,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.fish.offlineplayers.OfflinePlayers"
+      "net.lilfish.offlineplayers.OfflinePlayers"
     ],
     "client": [],
     "server": []

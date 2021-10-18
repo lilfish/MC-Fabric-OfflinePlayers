@@ -1,10 +1,10 @@
-package net.fish.offlineplayers.storage;
+package net.lilfish.offlineplayers.storage;
 
 import io.jsondb.InvalidJsonDbApiUsageException;
 import io.jsondb.JsonDBTemplate;
 import io.jsondb.query.Update;
-import net.fish.offlineplayers.NPC.NPCClass;
-import net.fish.offlineplayers.storage.models.NPCModel;
+import net.lilfish.offlineplayers.NPC.NPCClass;
+import net.lilfish.offlineplayers.storage.models.NPCModel;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
@@ -25,7 +25,7 @@ public class OfflineDatabase {
     String dbFilesLocation = "./offlineplayers/";
 
     //Java package name where POJO's are present
-    String baseScanPackage = "net.fish.offlineplayers.storage.models";
+    String baseScanPackage = "net.lilfish.offlineplayers.storage.models";
 
     public Items items = new Items();
 
