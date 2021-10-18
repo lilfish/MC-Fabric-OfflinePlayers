@@ -166,7 +166,6 @@ public class OfflineDatabase {
         inv.armor.set(1, this.getItemStack(legs_item));
         inv.armor.set(2, this.getItemStack(chest_item));
         inv.armor.set(3, this.getItemStack(head_item));
-
         return inv;
     }
 
@@ -175,7 +174,7 @@ public class OfflineDatabase {
             String itemName = npcItem.itemname.replaceAll(" ", "_").toUpperCase();
             Field itemField = items.getClass().getDeclaredField(itemName);
             Item realItem = (Item) itemField.get(this);
-            ItemStack itemStack = new ItemStack(realItem, npcItem.count);
+            ItemStack itemStack = new ItemStack(realItem, npcItem.count > 0 ? npcItem.count : 1);
             if(npcItem.nbttag != null){
                 NbtCompound tags = StringNbtReader.parse(npcItem.nbttag);
                 itemStack.setNbt(tags);

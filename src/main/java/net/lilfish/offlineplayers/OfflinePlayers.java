@@ -13,6 +13,7 @@ import net.lilfish.offlineplayers.storage.OfflineDatabase;
 import net.lilfish.offlineplayers.storage.models.NPCModel;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.network.MessageType;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
@@ -150,8 +151,8 @@ public class OfflinePlayers implements ModInitializer {
                 correct = handleAliveNPC(player, npc);
             }
             // Remove NPC from DataBase
-//            if(correct)
-//                STORAGE.removeNPC(player.getUuid());
+            if(correct)
+                STORAGE.removeNPC(player.getUuid());
         }
 
     }
@@ -160,7 +161,7 @@ public class OfflinePlayers implements ModInitializer {
         ServerPlayerEntity npcPlayer = player.server.getPlayerManager().getPlayer(npc.getNpc_id());
         if(npcPlayer != null) {
 //          Set pos
-            player.setPos(npcPlayer.getX(), npcPlayer.getY(), npcPlayer.getZ());
+            player.refreshPositionAfterTeleport(npcPlayer.getX(), npcPlayer.getY(), npcPlayer.getZ());
 //          Copy inv.
             PlayerInventory npcInv = npcPlayer.getInventory();
             setInventory(player, npcInv);
@@ -180,15 +181,21 @@ public class OfflinePlayers implements ModInitializer {
 
     private static boolean handleDeadNPC(ServerPlayerEntity player, NPCModel npc){
 //      Set pos
-        player.setPos(npc.getX(), npc.getY(), npc.getZ());
+//        player.requestTeleport(npc.getX(), npc.getY(), npc.getZ());
+        player.resetPosition();
+
+        player.refreshPositionAfterTeleport(npc.getX(), npc.getY(), npc.getZ());
 //      Copy inv.
         PlayerInventory npcInv = STORAGE.getNPCInventory(npc);
-//        setInventory(player, npcInv);
+
+        setInventory(player, npcInv);
 ////      Copy XP
-//        player.setExperienceLevel(npc.getXPlevel());
-//        player.setExperiencePoints(npc.getXPpoints());
+        player.setExperiencePoints(npc.getXPpoints());
+        player.setExperienceLevel(npc.getXPlevel());
 ////      Kill player
-//        player.kill();
+        player.setHealth(0);
+        player.server.getPlayerManager().broadcastChatMessage(Text.of(player.getDisplayName().asString() + " died: " + npc.getDeathMessage()), MessageType.CHAT, player.getUuid());
+
         return true;
     }
 

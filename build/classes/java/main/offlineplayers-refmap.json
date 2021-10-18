@@ -2,8 +2,8 @@
   "mappings": {
     "net/lilfish/offlineplayers/mixin/PlayerManagerMixin": {
       "loadPlayerData": "Lnet/minecraft/class_3324;method_14600(Lnet/minecraft/class_3222;)Lnet/minecraft/class_2487;",
-      "createPlayer": "Lnet/minecraft/class_3324;method_14613(Lcom/mojang/authlib/GameProfile;)Lnet/minecraft/class_3222;",
       "onPlayerConnect": "Lnet/minecraft/class_3324;method_14570(Lnet/minecraft/class_2535;Lnet/minecraft/class_3222;)V",
+      "createPlayer": "Lnet/minecraft/class_3324;method_14613(Lcom/mojang/authlib/GameProfile;)Lnet/minecraft/class_3222;",
       "net/minecraft/server/network/ServerPlayNetworkHandler": "net/minecraft/class_3244"
     },
     "net/lilfish/offlineplayers/mixin/ServerPlayerEntityMixin": {
@@ -14,8 +14,8 @@
     "named:intermediary": {
       "net/lilfish/offlineplayers/mixin/PlayerManagerMixin": {
         "loadPlayerData": "Lnet/minecraft/class_3324;method_14600(Lnet/minecraft/class_3222;)Lnet/minecraft/class_2487;",
-        "createPlayer": "Lnet/minecraft/class_3324;method_14613(Lcom/mojang/authlib/GameProfile;)Lnet/minecraft/class_3222;",
         "onPlayerConnect": "Lnet/minecraft/class_3324;method_14570(Lnet/minecraft/class_2535;Lnet/minecraft/class_3222;)V",
+        "createPlayer": "Lnet/minecraft/class_3324;method_14613(Lcom/mojang/authlib/GameProfile;)Lnet/minecraft/class_3222;",
         "net/minecraft/server/network/ServerPlayNetworkHandler": "net/minecraft/class_3244"
       },
       "net/lilfish/offlineplayers/mixin/ServerPlayerEntityMixin": {
