@@ -1,4 +1,4 @@
-package net.fish.offlineplayers;
+package net.lilfish.offlineplayers;
 
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
@@ -6,13 +6,14 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
-import net.fish.offlineplayers.NPC.EntityPlayerActionPack;
-import net.fish.offlineplayers.NPC.NPCClass;
-import net.fish.offlineplayers.interfaces.ServerPlayerEntityInterface;
-import net.fish.offlineplayers.storage.OfflineDatabase;
-import net.fish.offlineplayers.storage.models.NPCModel;
+import net.lilfish.offlineplayers.NPC.EntityPlayerActionPack;
+import net.lilfish.offlineplayers.NPC.NPCClass;
+import net.lilfish.offlineplayers.interfaces.ServerPlayerEntityInterface;
+import net.lilfish.offlineplayers.storage.OfflineDatabase;
+import net.lilfish.offlineplayers.storage.models.NPCModel;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.network.MessageType;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
@@ -160,7 +161,7 @@ public class OfflinePlayers implements ModInitializer {
         ServerPlayerEntity npcPlayer = player.server.getPlayerManager().getPlayer(npc.getNpc_id());
         if(npcPlayer != null) {
 //          Set pos
-            player.setPos(npcPlayer.getX(), npcPlayer.getY(), npcPlayer.getZ());
+            player.refreshPositionAfterTeleport(npcPlayer.getX(), npcPlayer.getY(), npcPlayer.getZ());
 //          Copy inv.
             PlayerInventory npcInv = npcPlayer.getInventory();
             setInventory(player, npcInv);
@@ -173,22 +174,28 @@ public class OfflinePlayers implements ModInitializer {
             {
                 player.addStatusEffect(statusEffect);
             }
-            npcPlayer.networkHandler.disconnect(Text.of("Joined the game"));
+            npcPlayer.kill();
         }
         return true;
     }
 
     private static boolean handleDeadNPC(ServerPlayerEntity player, NPCModel npc){
 //      Set pos
-        player.setPos(npc.getX(), npc.getY(), npc.getZ());
+//        player.requestTeleport(npc.getX(), npc.getY(), npc.getZ());
+        player.resetPosition();
+
+        player.refreshPositionAfterTeleport(npc.getX(), npc.getY(), npc.getZ());
 //      Copy inv.
         PlayerInventory npcInv = STORAGE.getNPCInventory(npc);
+
         setInventory(player, npcInv);
-//      Copy XP
-        player.setExperienceLevel(npc.getXPlevel());
+////      Copy XP
         player.setExperiencePoints(npc.getXPpoints());
-//      Kill player
-        player.kill();
+        player.setExperienceLevel(npc.getXPlevel());
+////      Kill player
+        player.setHealth(0);
+        player.server.getPlayerManager().broadcastChatMessage(Text.of(player.getDisplayName().asString() + " died: " + npc.getDeathMessage()), MessageType.CHAT, player.getUuid());
+
         return true;
     }
 

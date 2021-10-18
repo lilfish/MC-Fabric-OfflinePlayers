@@ -1,39 +1,34 @@
-net/fish/offlineplayers/NBTUtils/NbtToJson.java
- net.fish.offlineplayers.NBTUtils.NbtToJson
- net.fish.offlineplayers.NBTUtils.NbtToJson$ConversionMode
-net/fish/offlineplayers/NBTUtils/JsonToNbt.java
- net.fish.offlineplayers.NBTUtils.JsonToNbt
-net/fish/offlineplayers/NPC/Tracer.java
- net.fish.offlineplayers.NPC.Tracer
-net/fish/offlineplayers/interfaces/ImplementedInventory.java
- net.fish.offlineplayers.interfaces.ImplementedInventory
-net/fish/offlineplayers/mixin/ServerPlayerEntityMixin.java
- net.fish.offlineplayers.mixin.ServerPlayerEntityMixin
-net/fish/offlineplayers/OfflinePlayers.java
- net.fish.offlineplayers.OfflinePlayers
-net/fish/offlineplayers/storage/models/NPCModel.java
- net.fish.offlineplayers.storage.models.NPCModel
- net.fish.offlineplayers.storage.models.NPCModel$NPCItem
-net/fish/offlineplayers/OfflineNetworkManager.java
- net.fish.offlineplayers.OfflineNetworkManager
-net/fish/offlineplayers/NPC/NPCClass.java
- net.fish.offlineplayers.NPC.NPCClass
-net/fish/offlineplayers/interfaces/ServerPlayerEntityInterface.java
- net.fish.offlineplayers.interfaces.ServerPlayerEntityInterface
-net/fish/offlineplayers/mixin/PlayerManagerMixin.java
- net.fish.offlineplayers.mixin.PlayerManagerMixin
-net/fish/offlineplayers/storage/OfflineDatabase.java
- net.fish.offlineplayers.storage.OfflineDatabase
-net/fish/offlineplayers/OfflineNetHandlerPlayServer.java
- net.fish.offlineplayers.OfflineNetHandlerPlayServer
-net/fish/offlineplayers/NPC/EntityPlayerActionPack.java
- net.fish.offlineplayers.NPC.EntityPlayerActionPack
- net.fish.offlineplayers.NPC.EntityPlayerActionPack$1
- net.fish.offlineplayers.NPC.EntityPlayerActionPack$Action
- net.fish.offlineplayers.NPC.EntityPlayerActionPack$ActionType
- net.fish.offlineplayers.NPC.EntityPlayerActionPack$ActionType$1
- net.fish.offlineplayers.NPC.EntityPlayerActionPack$ActionType$2
- net.fish.offlineplayers.NPC.EntityPlayerActionPack$ActionType$3
- net.fish.offlineplayers.NPC.EntityPlayerActionPack$ActionType$4
- net.fish.offlineplayers.NPC.EntityPlayerActionPack$ActionType$5
- net.fish.offlineplayers.NPC.EntityPlayerActionPack$ActionType$6
+net/lilfish/offlineplayers/NPC/Tracer.java
+ net.lilfish.offlineplayers.NPC.Tracer
+net/lilfish/offlineplayers/OfflineNetworkManager.java
+ net.lilfish.offlineplayers.OfflineNetworkManager
+net/lilfish/offlineplayers/mixin/ServerPlayerEntityMixin.java
+ net.lilfish.offlineplayers.mixin.ServerPlayerEntityMixin
+net/lilfish/offlineplayers/NPC/EntityPlayerActionPack.java
+ net.lilfish.offlineplayers.NPC.EntityPlayerActionPack
+ net.lilfish.offlineplayers.NPC.EntityPlayerActionPack$1
+ net.lilfish.offlineplayers.NPC.EntityPlayerActionPack$Action
+ net.lilfish.offlineplayers.NPC.EntityPlayerActionPack$ActionType
+ net.lilfish.offlineplayers.NPC.EntityPlayerActionPack$ActionType$1
+ net.lilfish.offlineplayers.NPC.EntityPlayerActionPack$ActionType$2
+ net.lilfish.offlineplayers.NPC.EntityPlayerActionPack$ActionType$3
+ net.lilfish.offlineplayers.NPC.EntityPlayerActionPack$ActionType$4
+ net.lilfish.offlineplayers.NPC.EntityPlayerActionPack$ActionType$5
+ net.lilfish.offlineplayers.NPC.EntityPlayerActionPack$ActionType$6
+net/lilfish/offlineplayers/interfaces/ImplementedInventory.java
+ net.lilfish.offlineplayers.interfaces.ImplementedInventory
+net/lilfish/offlineplayers/OfflineNetHandlerPlayServer.java
+ net.lilfish.offlineplayers.OfflineNetHandlerPlayServer
+net/lilfish/offlineplayers/interfaces/ServerPlayerEntityInterface.java
+ net.lilfish.offlineplayers.interfaces.ServerPlayerEntityInterface
+net/lilfish/offlineplayers/storage/models/NPCModel.java
+ net.lilfish.offlineplayers.storage.models.NPCModel
+ net.lilfish.offlineplayers.storage.models.NPCModel$NPCItem
+net/lilfish/offlineplayers/mixin/PlayerManagerMixin.java
+ net.lilfish.offlineplayers.mixin.PlayerManagerMixin
+net/lilfish/offlineplayers/OfflinePlayers.java
+ net.lilfish.offlineplayers.OfflinePlayers
+net/lilfish/offlineplayers/NPC/NPCClass.java
+ net.lilfish.offlineplayers.NPC.NPCClass
+net/lilfish/offlineplayers/storage/OfflineDatabase.java
+ net.lilfish.offlineplayers.storage.OfflineDatabase

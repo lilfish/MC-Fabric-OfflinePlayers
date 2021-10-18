@@ -1,9 +1,9 @@
-package net.fish.offlineplayers.mixin;
+package net.lilfish.offlineplayers.mixin;
 
 import com.mojang.authlib.GameProfile;
-import net.fish.offlineplayers.NPC.NPCClass;
-import net.fish.offlineplayers.OfflineNetHandlerPlayServer;
-import net.fish.offlineplayers.OfflinePlayers;
+import net.lilfish.offlineplayers.NPC.NPCClass;
+import net.lilfish.offlineplayers.OfflineNetHandlerPlayServer;
+import net.lilfish.offlineplayers.OfflinePlayers;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.ClientConnection;
 import net.minecraft.server.MinecraftServer;
@@ -17,6 +17,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
@@ -39,12 +40,19 @@ public abstract class PlayerManagerMixin {
 
     @Redirect(method = "onPlayerConnect", at = @At(value = "NEW", target = "net/minecraft/server/network/ServerPlayNetworkHandler"))
     private ServerPlayNetworkHandler replaceNetworkHandler(MinecraftServer server, ClientConnection clientConnection, ServerPlayerEntity playerIn) {
-        boolean isServerPlayerEntity = playerIn instanceof NPCClass;
-        if (isServerPlayerEntity) {
+        boolean isNPC = playerIn instanceof NPCClass;
+        if (isNPC) {
             return new OfflineNetHandlerPlayServer(this.server, clientConnection, playerIn);
         } else {
-            OfflinePlayers.playerJoined(playerIn);
             return new ServerPlayNetworkHandler(this.server, clientConnection, playerIn);
+        }
+    }
+
+    @Inject(method = "onPlayerConnect", at = @At("RETURN"))
+    private void initPlayerConnect(ClientConnection connection, ServerPlayerEntity player, CallbackInfo ci) {
+        boolean isNPC = player instanceof NPCClass;
+        if (!isNPC) {
+            OfflinePlayers.playerJoined(player);
         }
     }
 

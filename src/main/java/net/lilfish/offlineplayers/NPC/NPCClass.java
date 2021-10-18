@@ -1,9 +1,9 @@
-package net.fish.offlineplayers.NPC;
+package net.lilfish.offlineplayers.NPC;
 
 import com.mojang.authlib.GameProfile;
-import net.fish.offlineplayers.OfflineNetworkManager;
-import net.fish.offlineplayers.OfflinePlayers;
-import net.fish.offlineplayers.interfaces.ImplementedInventory;
+import net.lilfish.offlineplayers.OfflineNetworkManager;
+import net.lilfish.offlineplayers.OfflinePlayers;
+import net.lilfish.offlineplayers.interfaces.ImplementedInventory;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.damage.DamageSource;

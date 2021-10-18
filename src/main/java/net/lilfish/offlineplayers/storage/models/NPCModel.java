@@ -1,4 +1,4 @@
-package net.fish.offlineplayers.storage.models;
+package net.lilfish.offlineplayers.storage.models;
 
 import io.jsondb.annotation.Document;
 import io.jsondb.annotation.Id;

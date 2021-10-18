@@ -1,6 +1,6 @@
-package net.fish.offlineplayers.NPC;
+package net.lilfish.offlineplayers.NPC;
 
-import net.fish.offlineplayers.interfaces.ServerPlayerEntityInterface;
+import net.lilfish.offlineplayers.interfaces.ServerPlayerEntityInterface;
 import net.minecraft.block.BlockState;
 import net.minecraft.command.argument.EntityAnchorArgumentType;
 import net.minecraft.entity.Entity;

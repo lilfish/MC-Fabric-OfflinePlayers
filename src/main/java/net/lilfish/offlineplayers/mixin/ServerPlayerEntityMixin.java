@@ -1,10 +1,10 @@
-package net.fish.offlineplayers.mixin;
+package net.lilfish.offlineplayers.mixin;
 
 
 import com.mojang.authlib.GameProfile;
-import net.fish.offlineplayers.NPC.EntityPlayerActionPack;
-import net.fish.offlineplayers.OfflinePlayers;
-import net.fish.offlineplayers.interfaces.ServerPlayerEntityInterface;
+import net.lilfish.offlineplayers.NPC.EntityPlayerActionPack;
+import net.lilfish.offlineplayers.OfflinePlayers;
+import net.lilfish.offlineplayers.interfaces.ServerPlayerEntityInterface;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
