@@ -10,8 +10,12 @@ import net.fish.offlineplayers.NPC.EntityPlayerActionPack;
 import net.fish.offlineplayers.NPC.NPCClass;
 import net.fish.offlineplayers.interfaces.ServerPlayerEntityInterface;
 import net.fish.offlineplayers.storage.OfflineDatabase;
+import net.fish.offlineplayers.storage.models.NPCModel;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.Text;
 import net.minecraft.world.GameMode;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -42,7 +46,7 @@ public class OfflinePlayers implements ModInitializer {
                 dispatcher.register(literal("offline")
                         .executes(OfflinePlayers::spawn)
                         .then(argument("action", StringArgumentType.word())
-                                .suggests((c, b) -> suggestMatching(new String[]{"place", "attack", "holdAttack", "jump"}, b))
+                                .suggests((c, b) -> suggestMatching(new String[]{"place", "attack", "holdAttack", "jump", "dropItem"}, b))
                                 .executes(OfflinePlayers::spawn)
                                 .then(argument("interval", IntegerArgumentType.integer(0, 1000))
                                         .executes(OfflinePlayers::spawn)
@@ -111,6 +115,9 @@ public class OfflinePlayers implements ModInitializer {
                 case "jump":
                     action_type = EntityPlayerActionPack.ActionType.JUMP;
                     break;
+                case "dropItem":
+                    action_type = EntityPlayerActionPack.ActionType.DROP_ITEM;
+                    break;
             }
             EntityPlayerActionPack.ActionType finalType = action_type;
             EntityPlayerActionPack.Action finalAction = action_action;
@@ -123,7 +130,7 @@ public class OfflinePlayers implements ModInitializer {
             OfflinePlayers.LOGGER.fatal("Offline player not generated");
             return 0;
         }
-
+        player.networkHandler.disconnect(Text.of("Offline player generated"));
 
         return 1;
     }
@@ -134,7 +141,69 @@ public class OfflinePlayers implements ModInitializer {
     }
 
     public static void playerJoined(ServerPlayerEntity player) {
-//        NPCClass npc
+        NPCModel npc = STORAGE.findNPCByPlayer(player.getUuid());
+        if(npc != null){
+            boolean correct = false;
+            if(npc.isDead()){
+                correct = handleDeadNPC(player, npc);
+            } else if(!npc.isDead()){
+                correct = handleAliveNPC(player, npc);
+            }
+            // Remove NPC from DataBase
+            if(correct)
+                STORAGE.removeNPC(player.getUuid());
+        }
+
     }
 
+    private static boolean handleAliveNPC(ServerPlayerEntity player, NPCModel npc){
+        ServerPlayerEntity npcPlayer = player.server.getPlayerManager().getPlayer(npc.getNpc_id());
+        if(npcPlayer != null) {
+//          Set pos
+            player.setPos(npcPlayer.getX(), npcPlayer.getY(), npcPlayer.getZ());
+//          Copy inv.
+            PlayerInventory npcInv = npcPlayer.getInventory();
+            setInventory(player, npcInv);
+//          Copy XP
+            int points = Math.round(npcPlayer.getNextLevelExperience()/1*npcPlayer.experienceProgress);
+            player.setExperienceLevel(npcPlayer.experienceLevel);
+            player.setExperiencePoints(points);
+//          Set status effects
+            for (StatusEffectInstance statusEffect : npcPlayer.getStatusEffects())
+            {
+                player.addStatusEffect(statusEffect);
+            }
+            npcPlayer.networkHandler.disconnect(Text.of("Joined the game"));
+        }
+        return true;
+    }
+
+    private static boolean handleDeadNPC(ServerPlayerEntity player, NPCModel npc){
+//      Set pos
+        player.setPos(npc.getX(), npc.getY(), npc.getZ());
+//      Copy inv.
+        PlayerInventory npcInv = STORAGE.getNPCInventory(npc);
+        setInventory(player, npcInv);
+//      Copy XP
+        player.setExperienceLevel(npc.getXPlevel());
+        player.setExperiencePoints(npc.getXPpoints());
+//      Kill player
+        player.kill();
+        return true;
+    }
+
+    private static void setInventory(ServerPlayerEntity player, PlayerInventory npcInv){
+        player.getInventory().main.clear();
+        for (int i = 0; i < npcInv.main.size(); i++) {
+            player.getInventory().main.set(i, npcInv.main.get(i));
+        }
+        player.getInventory().armor.clear();
+        for (int i = 0; i < npcInv.armor.size(); i++) {
+            player.getInventory().armor.set(i, npcInv.armor.get(i));
+        }
+        player.getInventory().offHand.clear();
+        for (int i = 0; i < npcInv.offHand.size(); i++) {
+            player.getInventory().offHand.set(i, npcInv.offHand.get(i));
+        }
+    }
 }
