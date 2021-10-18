@@ -1,6 +1,5 @@
 package net.fish.offlineplayers.storage;
 
-import com.google.gson.Gson;
 import io.jsondb.InvalidJsonDbApiUsageException;
 import io.jsondb.JsonDBTemplate;
 import io.jsondb.query.Update;
@@ -29,8 +28,6 @@ public class OfflineDatabase {
     String baseScanPackage = "net.fish.offlineplayers.storage.models";
 
     public Items items = new Items();
-
-    final static Gson gson = new Gson();
 
     //Optionally a Cipher object if you need Encryption
 
