@@ -6,6 +6,12 @@
       "createPlayer": "Lnet/minecraft/class_3324;method_14613(Lcom/mojang/authlib/GameProfile;)Lnet/minecraft/class_3222;",
       "net/minecraft/server/network/ServerPlayNetworkHandler": "net/minecraft/class_3244"
     },
+    "net/lilfish/offlineplayers/mixin/MinecraftServerCoreMixin": {
+      "loadWorld": "Lnet/minecraft/server/MinecraftServer;method_3735()V"
+    },
+    "net/lilfish/offlineplayers/mixin/ServerMetaPingMixin": {
+      "setPlayers": "Lnet/minecraft/class_2926;method_12681(Lnet/minecraft/class_2926$class_2927;)V"
+    },
     "net/lilfish/offlineplayers/mixin/ServerPlayerEntityMixin": {
       "tick": "Lnet/minecraft/class_3222;method_5773()V"
     }
@@ -17,6 +23,12 @@
         "onPlayerConnect": "Lnet/minecraft/class_3324;method_14570(Lnet/minecraft/class_2535;Lnet/minecraft/class_3222;)V",
         "createPlayer": "Lnet/minecraft/class_3324;method_14613(Lcom/mojang/authlib/GameProfile;)Lnet/minecraft/class_3222;",
         "net/minecraft/server/network/ServerPlayNetworkHandler": "net/minecraft/class_3244"
+      },
+      "net/lilfish/offlineplayers/mixin/MinecraftServerCoreMixin": {
+        "loadWorld": "Lnet/minecraft/server/MinecraftServer;method_3735()V"
+      },
+      "net/lilfish/offlineplayers/mixin/ServerMetaPingMixin": {
+        "setPlayers": "Lnet/minecraft/class_2926;method_12681(Lnet/minecraft/class_2926$class_2927;)V"
       },
       "net/lilfish/offlineplayers/mixin/ServerPlayerEntityMixin": {
         "tick": "Lnet/minecraft/class_3222;method_5773()V"

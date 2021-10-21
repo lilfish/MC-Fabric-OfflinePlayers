@@ -5,7 +5,9 @@
   "compatibilityLevel": "JAVA_16",
   "mixins": [
     "ServerPlayerEntityMixin",
-    "PlayerManagerMixin"
+    "PlayerManagerMixin",
+    "MinecraftServerCoreMixin",
+    "ServerMetaPingMixin"
   ],
   "injectors": {
     "defaultRequire": 1

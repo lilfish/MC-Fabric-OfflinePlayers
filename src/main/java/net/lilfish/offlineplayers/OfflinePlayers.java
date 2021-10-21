@@ -14,6 +14,7 @@ import net.lilfish.offlineplayers.storage.models.NPCModel;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.network.MessageType;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
@@ -35,6 +36,7 @@ public class OfflinePlayers implements ModInitializer {
     public static final String MOD_ID = "offlineplayer";
     public static final String MOD_NAME = "OfflinePlayer";
     public static OfflineDatabase STORAGE = new OfflineDatabase();
+    public static MinecraftServer server;
 
     @Override
     public void onInitialize() {
@@ -181,9 +183,6 @@ public class OfflinePlayers implements ModInitializer {
 
     private static boolean handleDeadNPC(ServerPlayerEntity player, NPCModel npc){
 //      Set pos
-//        player.requestTeleport(npc.getX(), npc.getY(), npc.getZ());
-        player.resetPosition();
-
         player.refreshPositionAfterTeleport(npc.getX(), npc.getY(), npc.getZ());
 //      Copy inv.
         PlayerInventory npcInv = STORAGE.getNPCInventory(npc);
@@ -212,5 +211,10 @@ public class OfflinePlayers implements ModInitializer {
         for (int i = 0; i < npcInv.offHand.size(); i++) {
             player.getInventory().offHand.set(i, npcInv.offHand.get(i));
         }
+    }
+
+    public static void onServerLoaded(MinecraftServer mcServer){
+        // we need to set the server so we can access it from the ping mixin
+        server = mcServer;
     }
 }

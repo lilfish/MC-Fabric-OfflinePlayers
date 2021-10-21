@@ -1,2 +1,3 @@
 v1	named	intermediary
+FIELD	net/lilfish/offlineplayers/mixin/PingMixin	Lnet/minecraft/server/ServerMetadata$Players;	players	field_13285
 FIELD	net/lilfish/offlineplayers/mixin/PlayerManagerMixin	Lnet/minecraft/server/MinecraftServer;	server	field_14360
