@@ -69,7 +69,7 @@ public class OfflinePlayers implements ModInitializer {
         try {
             player = source.getPlayer();
         } catch (CommandSyntaxException e) {
-            OfflinePlayers.LOGGER.fatal("Couldn't get player");
+            log(Level.FATAL, "Couldn't get player, not spawning offline player");
             return 0;
         }
 
@@ -130,7 +130,7 @@ public class OfflinePlayers implements ModInitializer {
 
 //      Check if NPC was created
         if (npc == null) {
-            OfflinePlayers.LOGGER.fatal("Offline player not generated");
+            log(Level.FATAL, "Offline player not generated");
             return 0;
         }
         player.networkHandler.disconnect(Text.of("Offline player generated"));

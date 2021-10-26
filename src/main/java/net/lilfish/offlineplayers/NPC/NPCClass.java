@@ -36,14 +36,13 @@ public class NPCClass extends ServerPlayerEntity implements ImplementedInventory
     public static <AtomicReference> NPCClass createFake(ServerPlayerEntity player, GameMode gamemode, boolean flying)
     {
         World world = player.getEntityWorld();
-        String username = "[OFF]"+player.getName().asTruncatedString(11);
+        String username = "[OFF]"+(player.getName().asTruncatedString(11));
         MinecraftServer server = player.getServer();
         RegistryKey<World> dimensionId = world.getRegistryKey();
         ServerWorld worldIn = server.getWorld(dimensionId);
 //        If there is already a [off] player, kill it.
         ServerPlayerEntity exists = server.getPlayerManager().getPlayer(username);
         if(exists != null){
-            System.out.println(exists);
             exists.kill();
         }
         UserCache.setUseRemote(false);

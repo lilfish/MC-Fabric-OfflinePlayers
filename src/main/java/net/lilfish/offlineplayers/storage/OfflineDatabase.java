@@ -14,6 +14,7 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.StringNbtReader;
 import net.minecraft.text.Text;
+import org.apache.logging.log4j.Level;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -36,8 +37,7 @@ public class OfflineDatabase {
         try {
             jsonDBTemplate.createCollection(NPCModel.class);
         } catch (InvalidJsonDbApiUsageException ignored) {
-            OfflinePlayers.LOGGER.info(ignored);
-            OfflinePlayers.LOGGER.info("Probably already exists");
+            OfflinePlayers.log(Level.WARN, ignored.toString());
         }
     }
 
