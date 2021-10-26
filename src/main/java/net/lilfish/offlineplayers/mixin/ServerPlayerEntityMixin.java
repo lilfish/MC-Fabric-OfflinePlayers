@@ -8,6 +8,7 @@ import net.lilfish.offlineplayers.interfaces.ServerPlayerEntityInterface;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import org.apache.logging.log4j.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -25,7 +26,7 @@ public abstract class ServerPlayerEntityMixin implements ServerPlayerEntityInter
     }
 
     @Inject(method = "<init>", at = @At(value = "RETURN"))
-    private void onServerPlayerEntityContructor(
+    private void onServerPlayerEntityConstructor(
             MinecraftServer minecraftServer_1,
             ServerWorld serverWorld_1,
             GameProfile gameProfile_1,
@@ -38,9 +39,9 @@ public abstract class ServerPlayerEntityMixin implements ServerPlayerEntityInter
         try {
             actionPack.onUpdate();
         } catch (StackOverflowError soe) {
-            OfflinePlayers.LOGGER.fatal("Caused stack overflow when performing player action", soe);
+            OfflinePlayers.log(Level.FATAL, "Caused stack overflow when performing player action");
         } catch (Throwable exc) {
-            OfflinePlayers.LOGGER.fatal("Error executing player tasks", exc);
+            OfflinePlayers.log(Level.FATAL, "Error executing player tasks");
         }
     }
 }
