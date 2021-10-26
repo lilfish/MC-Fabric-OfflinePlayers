@@ -4,6 +4,7 @@ import io.jsondb.InvalidJsonDbApiUsageException;
 import io.jsondb.JsonDBTemplate;
 import io.jsondb.query.Update;
 import net.lilfish.offlineplayers.NPC.NPCClass;
+import net.lilfish.offlineplayers.OfflinePlayers;
 import net.lilfish.offlineplayers.storage.models.NPCModel;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerInventory;
@@ -22,7 +23,7 @@ import java.util.UUID;
 
 public class OfflineDatabase {
     //Actual location on disk for database files, process should have read-write permissions to this folder
-    String dbFilesLocation = "./offlineplayers/";
+    String dbFilesLocation = "./offlinedatabase/";
 
     //Java package name where POJO's are present
     String baseScanPackage = "net.lilfish.offlineplayers.storage.models";
@@ -30,13 +31,13 @@ public class OfflineDatabase {
     public Items items = new Items();
 
     //Optionally a Cipher object if you need Encryption
-
     JsonDBTemplate jsonDBTemplate = new JsonDBTemplate(dbFilesLocation, baseScanPackage);
-
     public void init() {
         try {
             jsonDBTemplate.createCollection(NPCModel.class);
         } catch (InvalidJsonDbApiUsageException ignored) {
+            OfflinePlayers.LOGGER.info(ignored);
+            OfflinePlayers.LOGGER.info("Probably already exists");
         }
     }
 

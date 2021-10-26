@@ -22,6 +22,7 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 
 	implementation 'io.jsondb:jsondb-core:1.0.115-j11'
+
 }
 
 processResources {

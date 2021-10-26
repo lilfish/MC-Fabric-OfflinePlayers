@@ -25,21 +25,21 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
-@Mixin(PlayerManager.class)
+@Mixin(value=PlayerManager.class, priority = 1500)
 public abstract class PlayerManagerMixin {
     @Shadow
     @Final
     private MinecraftServer server;
 
     @Inject(method = "loadPlayerData", at = @At(value = "RETURN", shift = At.Shift.BEFORE))
-    private void fixStartingPos(ServerPlayerEntity serverPlayer, CallbackInfoReturnable<NbtCompound> cir) {
+    private void fixOfflineStartingPos(ServerPlayerEntity serverPlayer, CallbackInfoReturnable<NbtCompound> cir) {
         if (serverPlayer instanceof NPCClass) {
             ((NPCClass) serverPlayer).fixStartingPosition.run();
         }
     }
 
     @Redirect(method = "onPlayerConnect", at = @At(value = "NEW", target = "net/minecraft/server/network/ServerPlayNetworkHandler"))
-    private ServerPlayNetworkHandler replaceNetworkHandler(MinecraftServer server, ClientConnection clientConnection, ServerPlayerEntity playerIn) {
+    private ServerPlayNetworkHandler replaceOfflineNetworkHandler(MinecraftServer server, ClientConnection clientConnection, ServerPlayerEntity playerIn) {
         boolean isNPC = playerIn instanceof NPCClass;
         if (isNPC) {
             return new OfflineNetHandlerPlayServer(this.server, clientConnection, playerIn);
@@ -49,7 +49,7 @@ public abstract class PlayerManagerMixin {
     }
 
     @Inject(method = "onPlayerConnect", at = @At("RETURN"))
-    private void initPlayerConnect(ClientConnection connection, ServerPlayerEntity player, CallbackInfo ci) {
+    private void initOfflinePlayerConnect(ClientConnection connection, ServerPlayerEntity player, CallbackInfo ci) {
         boolean isNPC = player instanceof NPCClass;
         if (!isNPC) {
             OfflinePlayers.playerJoined(player);
@@ -57,13 +57,13 @@ public abstract class PlayerManagerMixin {
     }
 
     @Redirect(method = "createPlayer", at = @At(value = "INVOKE", target = "Ljava/util/Iterator;hasNext()Z"))
-    private boolean cancelWhileLoop(Iterator iterator) {
+    private boolean cancelOfflineWhileLoop(Iterator iterator) {
         return false;
     }
 
     @Inject(method = "createPlayer", at = @At(value = "INVOKE", shift = At.Shift.BEFORE,
             target = "Ljava/util/Iterator;hasNext()Z"), locals = LocalCapture.CAPTURE_FAILHARD)
-    private void newWhileLoop(GameProfile gameProfile, CallbackInfoReturnable<ServerPlayerEntity> cir, UUID uUID,
+    private void newOfflineWhileLoop(GameProfile gameProfile, CallbackInfoReturnable<ServerPlayerEntity> cir, UUID uUID,
                               List list, Iterator ServerPlayers) {
         while (ServerPlayers.hasNext()) {
             ServerPlayerEntity serverPlayer = (ServerPlayerEntity) ServerPlayers.next();
