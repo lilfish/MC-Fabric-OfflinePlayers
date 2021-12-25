@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "offlineplayers",
-  "version": "1.4.5",
+  "version": "1.5.0",
   "name": "OfflinePlayers",
   "description": "Allows a user to logout and leaving a fake player that loads the chunks",
   "authors": [
